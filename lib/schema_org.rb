@@ -16,7 +16,8 @@ module SchemaOrg
     WebUrl = Types::String.constructor do |url|
       url = url.to_s.strip
       unless SchemaOrg::UrlValidator.valid_web_url?(url)
-        raise Dry::Types::ConstraintError.new("'#{url}' is not a valid URL", url)
+        raise Dry::Types::ConstraintError.new("'#{url}' is not a valid URL",
+                                              url)
       end
 
       url

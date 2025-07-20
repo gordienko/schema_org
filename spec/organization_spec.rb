@@ -23,10 +23,15 @@ RSpec.describe SchemaOrg::Organization do
     it 'assigns all optional attributes when provided' do
       founder = SchemaOrg::Person.new(name: 'John Doe')
 
-      # Добавим корректный объект для `Place`
       founding_location = SchemaOrg::Place.new(
         name: 'New York Office',
-        address: '123 Main Street, New York, NY'
+        address: SchemaOrg::PostalAddress.new(
+          streetAddress: '123 Main Street',
+          addressLocality: 'New York',
+          addressRegion: 'NY',
+          postalCode: '10001',
+          addressCountry: 'USA'
+        )
       )
 
       attributes = {
@@ -36,29 +41,29 @@ RSpec.describe SchemaOrg::Organization do
         email: 'contact@example.com',
         slogan: 'Innovating the Future',
         telephone: '123-456-7890',
-        same_as: ['https://facebook.com/techcorp', 'https://twitter.com/techcorp'],
-        founding_date: Date.new(2000, 1, 1),
-        legal_name: 'Tech Corporation Inc.',
+        sameAs: ['https://facebook.com/techcorp', 'https://twitter.com/techcorp'],
+        foundingDate: Date.new(2000, 1, 1),
+        legalName: 'Tech Corporation Inc.',
         founder: founder,
-        founding_location: founding_location
+        foundingLocation: founding_location
       }
       organization = SchemaOrg::Organization.new(attributes)
 
       expect(organization.to_h[:email]).to eq(attributes[:email])
       expect(organization.to_h[:slogan]).to eq(attributes[:slogan])
       expect(organization.to_h[:telephone]).to eq(attributes[:telephone])
-      expect(organization.to_h[:same_as]).to eq(attributes[:same_as])
-      expect(organization.to_h[:founding_date]).to eq(attributes[:founding_date])
-      expect(organization.to_h[:legal_name]).to eq(attributes[:legal_name])
+      expect(organization.to_h[:sameAs]).to eq(attributes[:sameAs])
+      expect(organization.to_h[:foundingDate]).to eq(attributes[:foundingDate])
+      expect(organization.to_h[:legalName]).to eq(attributes[:legalName])
       expect(organization.to_h[:founder]).to eq(founder.to_h)
-      expect(organization.to_h[:founding_location]).to eq(founding_location.to_h)
+      expect(organization.to_h[:foundingLocation]).to eq(founding_location.to_h)
     end
 
     it 'does not include optional attributes if they are not provided' do
       organization = SchemaOrg::Organization.new(name: 'Minimal Company', logo: 'https://example.com/min-logo.png',
                                                  url: 'https://example.com/minimal')
-      expect(organization.to_h.keys).not_to include(:email, :slogan, :telephone, :same_as, :founding_date, :legal_name,
-                                                    :founder, :founding_location)
+      expect(organization.to_h.keys).not_to include(:email, :slogan, :telephone, :sameAs, :foundingDate, :legalName,
+                                                    :founder, :foundingLocation)
     end
   end
 
