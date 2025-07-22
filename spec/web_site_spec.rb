@@ -18,22 +18,22 @@ RSpec.describe SchemaOrg::WebSite do
       expect(website.to_h[:url]).to eq(attributes[:url])
     end
 
-    it 'assigns the optional potential_action attribute if provided' do
-      search_action = SchemaOrg::SearchAction.new(query_input: 'search query', target: 'https://example.com/search')
+    it 'assigns the optional potentialAction attribute if provided' do
+      search_action = SchemaOrg::SearchAction.new(queryInput: 'search query', target: 'https://example.com/search')
       attributes = {
         name: 'Test WebSite',
         url: 'https://example.com',
-        potential_action: search_action
+        potentialAction: search_action
       }
       website = SchemaOrg::WebSite.new(attributes)
 
-      expect(website.to_h[:potential_action]).to eq(search_action.to_h)
+      expect(website.to_h[:potentialAction]).to eq(search_action.to_h)
     end
 
-    it 'excludes the optional potential_action attribute if not provided' do
+    it 'excludes the optional potentialAction attribute if not provided' do
       website = SchemaOrg::WebSite.new(name: 'Example Website', url: 'https://example.com')
 
-      expect(website.to_h.key?(:potential_action)).to eq(false)
+      expect(website.to_h.key?(:potentialAction)).to eq(false)
     end
 
     it 'raises an error if required attributes are missing' do
@@ -66,11 +66,11 @@ RSpec.describe SchemaOrg::WebSite do
     end
 
     it 'generates JSON-LD with required and optional attributes' do
-      search_action = SchemaOrg::SearchAction.new(query_input: 'search term', target: 'https://example.com/search')
+      search_action = SchemaOrg::SearchAction.new(queryInput: 'search term', target: 'https://example.com/search')
       attributes = {
         name: 'WebSite with Search',
         url: 'https://example.com',
-        potential_action: search_action
+        potentialAction: search_action
       }
       website = SchemaOrg::WebSite.new(attributes)
 
@@ -79,7 +79,7 @@ RSpec.describe SchemaOrg::WebSite do
         '@type' => 'WebSite',
         name: 'WebSite with Search',
         url: 'https://example.com',
-        potential_action: search_action.to_h
+        potentialAction: search_action.to_h
       }.to_json
 
       json_ld_script = website.to_json_ld

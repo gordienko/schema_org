@@ -55,7 +55,7 @@ module SchemaOrg
     attribute :url, Types::WebUrl
 
     # === optional attributes
-    attribute :potential_action?, SearchAction
+    attribute :potentialAction?, SearchAction
     attribute :description?, Types::String
     attribute :publisher?, Types::Any
     attribute :author?, Types::Any

@@ -34,7 +34,7 @@ module SchemaOrg
   # - alternateName?: (Types::String) - Optional. An alias for the search action.
   #
   class SearchAction < Base
-    attribute :query_input, Types::String
+    attribute :queryInput, Types::String
     attribute :target, Types::String
     attribute :result?, Types::Any
     attribute :query?, Types::String

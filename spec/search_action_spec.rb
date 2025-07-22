@@ -3,28 +3,28 @@
 RSpec.describe SchemaOrg::SearchAction do
   describe '#initialize' do
     it 'sets the default @type to SearchAction' do
-      search_action = SchemaOrg::SearchAction.new(query_input: 'test query', target: 'https://example.com/search')
+      search_action = SchemaOrg::SearchAction.new(queryInput: 'test query', target: 'https://example.com/search')
       expect(search_action.to_h[:@type]).to eq('SearchAction')
     end
 
     it 'assigns all required attributes correctly' do
       attributes = {
-        query_input: 'search term',
+        queryInput: 'search term',
         target: 'https://example.com/perform-search'
       }
       search_action = SchemaOrg::SearchAction.new(attributes)
 
-      expect(search_action.to_h[:query_input]).to eq(attributes[:query_input])
+      expect(search_action.to_h[:queryInput]).to eq(attributes[:queryInput])
       expect(search_action.to_h[:target]).to eq(attributes[:target])
     end
 
-    it 'raises an error if query_input is missing' do
+    it 'raises an error if queryInput is missing' do
       expect { SchemaOrg::SearchAction.new(target: 'https://example.com/search') }
-        .to raise_error(Dry::Struct::Error, /:query_input is missing in Hash input/)
+        .to raise_error(Dry::Struct::Error, /:queryInput is missing in Hash input/)
     end
 
     it 'raises an error if target is missing' do
-      expect { SchemaOrg::SearchAction.new(query_input: 'test query') }
+      expect { SchemaOrg::SearchAction.new(queryInput: 'test query') }
         .to raise_error(Dry::Struct::Error, /:target is missing in Hash input/)
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe SchemaOrg::SearchAction do
   describe '#to_json_ld' do
     it 'generates JSON-LD wrapped in a script tag with all attributes' do
       attributes = {
-        query_input: 'test query',
+        queryInput: 'test query',
         target: 'https://example.com/search'
       }
       search_action = SchemaOrg::SearchAction.new(attributes)
@@ -40,7 +40,7 @@ RSpec.describe SchemaOrg::SearchAction do
       expected_data = {
         '@context' => 'https://schema.org',
         '@type' => 'SearchAction',
-        query_input: 'test query',
+        queryInput: 'test query',
         target: 'https://example.com/search'
       }
 
