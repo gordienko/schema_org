@@ -19,7 +19,7 @@ RSpec.describe SchemaOrg::WebSite do
     end
 
     it 'assigns the optional potentialAction attribute if provided' do
-      search_action = SchemaOrg::SearchAction.new(queryInput: 'search query', target: 'https://example.com/search')
+      search_action = SchemaOrg::SearchAction.new('query-input': 'search query', target: 'https://example.com/search')
       attributes = {
         name: 'Test WebSite',
         url: 'https://example.com',
@@ -66,7 +66,7 @@ RSpec.describe SchemaOrg::WebSite do
     end
 
     it 'generates JSON-LD with required and optional attributes' do
-      search_action = SchemaOrg::SearchAction.new(queryInput: 'search term', target: 'https://example.com/search')
+      search_action = SchemaOrg::SearchAction.new('query-input': 'search term', target: 'https://example.com/search')
       attributes = {
         name: 'WebSite with Search',
         url: 'https://example.com',
